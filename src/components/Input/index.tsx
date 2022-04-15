@@ -1,3 +1,4 @@
+import { ChangeEvent, FormEvent } from "react";
 import { Input } from "./styles";
 
 interface InputProps {
@@ -5,6 +6,8 @@ interface InputProps {
   placeholder: string;
   autoComplete?: string;
   required: boolean;
+  onChange?: any;
+  value?: string | number;
 }
 
 export const InputField = ({
@@ -12,9 +15,13 @@ export const InputField = ({
   placeholder,
   autoComplete,
   required,
+  onChange,
+  value,
 }: InputProps) => {
   return (
     <Input
+      value={value}
+      onChange={onChange}
       required={required}
       autoComplete={autoComplete}
       type={type}
