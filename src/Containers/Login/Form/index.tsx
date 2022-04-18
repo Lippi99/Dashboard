@@ -12,7 +12,12 @@ export const Form = () => {
     <Container>
       <InputContainer>
         <InputField required={true} type="email" placeholder="Email" />
-        <InputField required={true} type="password" placeholder="Password" />
+        <InputField
+          autoComplete="on"
+          required={true}
+          type="password"
+          placeholder="Password"
+        />
       </InputContainer>
       <HighLightText text="Esqueci minha senha" />
       <SignInButton />

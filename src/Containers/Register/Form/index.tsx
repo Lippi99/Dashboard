@@ -97,7 +97,13 @@ export const Form = () => {
       <PrivacyContainer>
         <span>
           Ao se registrar, você aceita nossos{" "}
-          <a href="#">termos de uso e a nossa política de privacidade</a>
+          <a
+            target="_blank"
+            href="https://www.rocketseat.com.br/"
+            rel="noreferrer"
+          >
+            termos de uso e a nossa política de privacidade
+          </a>
         </span>
       </PrivacyContainer>
       <div style={{ padding: "0 4rem" }}>
