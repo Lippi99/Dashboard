@@ -10,105 +10,131 @@ import {
   PrivacyContainer,
 } from "./styles";
 import Router from "next/router";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, Suspense, useEffect, useState } from "react";
+import { api } from "../../../service/api";
+import axios, { AxiosError } from "axios";
+
+import { SnackbarMessage } from "../../../components/Snackbar";
+
+interface FormErrors {
+  response: {
+    conflict: string;
+  };
+}
 
 export const Form = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [open, setOpen] = useState(false);
 
-  const handleNameFix = (name: string) => {
-    if (name.length < 5) {
-      throw new Error("É necessário que o campo tenha mais carácteres");
+  const handleRegister = async (e: any) => {
+    const payload = { email, name, password };
+    try {
+      const res = await api.post("user/api/register", payload);
+      const data = res.data;
+      setOpen(true);
+      setEmail("");
+      setName("");
+      setPassword("");
+      setPasswordConfirm("");
+      return data;
+    } catch (error: unknown | AxiosError) {
+      if (axios.isAxiosError(error)) {
+        const { response } = error;
+        if (response) {
+          alert(response.data.conflict);
+        }
+      }
     }
-  };
-
-  const passwordEqualsConfirm = (passwordConfirm: string, password: string) => {
-    if (passwordConfirm !== password) {
-      throw new Error("As senhas não coincidem");
-    }
-
-    if (passwordConfirm.length < 6 && password.length < 6) {
-      throw new Error("Precisam ter mais de 6 carácteres");
-    }
-  };
-
-  const submitForm = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    handleNameFix(name);
-    passwordEqualsConfirm(passwordConfirm, password);
-
-    setEmail("");
-    setName("");
-    setPassword("");
-    setPasswordConfirm("");
-    console.log({ email, name, password, passwordConfirm });
   };
 
   return (
-    <Container onSubmit={submitForm}>
-      <HeaderContainer style={{ color: "white" }}>
-        <button type="button" onClick={() => Router.push("/")}>
-          <ArrowCircleLeftIcon />
-        </button>
-        <span style={{ marginLeft: "2rem" }}>Crie sua conta</span>
-      </HeaderContainer>
-      <InputContainer>
-        <InputField
-          value={email}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
-          required={true}
-          type="email"
-          placeholder="Email"
-          autoComplete="off"
+    <Suspense>
+      <Container onSubmit={(e) => handleRegister(e.preventDefault())}>
+        <HeaderContainer style={{ color: "white" }}>
+          <button type="button" onClick={() => Router.push("/")}>
+            <ArrowCircleLeftIcon />
+          </button>
+          <span style={{ marginLeft: "2rem" }}>Crie sua conta</span>
+        </HeaderContainer>
+        <InputContainer>
+          <InputField
+            value={email}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
+            required={true}
+            type="email"
+            placeholder="Email"
+            autoComplete="off"
+          />
+
+          <InputField
+            value={name}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setName(e.target.value);
+            }}
+            required={true}
+            type="text"
+            placeholder="Seu nome"
+          />
+
+          <InputField
+            value={password}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setPassword(e.target.value);
+            }}
+            required={true}
+            type="password"
+            placeholder="Sua senha"
+          />
+
+          <InputField
+            value={passwordConfirm}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setPasswordConfirm(e.target.value);
+            }}
+            required={true}
+            type="password"
+            placeholder="Confirme sua senha"
+          />
+        </InputContainer>
+        <PrivacyContainer>
+          <span>
+            Ao se registrar, você aceita nossos{" "}
+            <a
+              target="_blank"
+              href="https://www.rocketseat.com.br/"
+              rel="noreferrer"
+            >
+              termos de uso e a nossa política de privacidade
+            </a>
+          </span>
+        </PrivacyContainer>
+        <div style={{ padding: "0 4rem" }}>
+          <SignUpButton />
+        </div>
+      </Container>
+
+      {open && (
+        <SnackbarMessage
+          severity="success"
+          message="Usuário cadastrado com sucesso!"
+          open={open}
+          setOpen={setOpen}
         />
-        <InputField
-          value={name}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setName(e.target.value);
-          }}
-          required={true}
-          type="text"
-          placeholder="Seu nome"
+      )}
+
+      {passwordConfirm !== password && (
+        <SnackbarMessage
+          severity="error"
+          message="As senhas não coincidem"
+          open={open}
+          setOpen={setOpen}
         />
-        <InputField
-          value={password}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setPassword(e.target.value);
-          }}
-          required={true}
-          type="password"
-          placeholder="Sua senha"
-        />
-        <InputField
-          value={passwordConfirm}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setPasswordConfirm(e.target.value);
-          }}
-          required={true}
-          type="password"
-          placeholder="Confirme sua senha"
-        />
-      </InputContainer>
-      <PrivacyContainer>
-        <span>
-          Ao se registrar, você aceita nossos{" "}
-          <a
-            target="_blank"
-            href="https://www.rocketseat.com.br/"
-            rel="noreferrer"
-          >
-            termos de uso e a nossa política de privacidade
-          </a>
-        </span>
-      </PrivacyContainer>
-      <div style={{ padding: "0 4rem" }}>
-        <SignUpButton />
-      </div>
-    </Container>
+      )}
+    </Suspense>
   );
 };

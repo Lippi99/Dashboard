@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent } from "react";
 import { Input } from "./styles";
 
 interface InputProps {
@@ -6,7 +6,7 @@ interface InputProps {
   placeholder: string;
   autoComplete?: string;
   required: boolean;
-  onChange?: any;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   value?: string | number;
 }
 
@@ -20,6 +20,7 @@ export const InputField = ({
 }: InputProps) => {
   return (
     <Input
+      className={value !== "" ? "notEmpty" : ""}
       value={value}
       onChange={onChange}
       required={required}
