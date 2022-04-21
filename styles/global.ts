@@ -62,6 +62,10 @@ export const GlobalStyle = createGlobalStyle`
   }
     }
 
+    a {
+      text-decoration: none;
+    }
+
     [disabled] {
         opacity: 0.6;
         cursor: not-allowed;

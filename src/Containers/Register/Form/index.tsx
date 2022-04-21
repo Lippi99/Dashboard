@@ -15,6 +15,7 @@ import { api } from "../../../service/api";
 import axios, { AxiosError } from "axios";
 
 import { SnackbarMessage } from "../../../components/Snackbar";
+import { NavLink } from "../../../components/Link";
 
 interface FormErrors {
   response: {
@@ -54,9 +55,10 @@ export const Form = () => {
     <Suspense>
       <Container onSubmit={(e) => handleRegister(e.preventDefault())}>
         <HeaderContainer style={{ color: "white" }}>
-          <button type="button" onClick={() => Router.push("/")}>
-            <ArrowCircleLeftIcon />
-          </button>
+          <NavLink
+            to="/"
+            value={<ArrowCircleLeftIcon style={{ color: "white" }} />}
+          />
           <span style={{ marginLeft: "2rem" }}>Crie sua conta</span>
         </HeaderContainer>
         <InputContainer>
