@@ -12,6 +12,7 @@ export const Container = styled.div<CardProps>`
   padding: ${props => props.padding};
   background: var(--lightBlack);
   margin: 2rem auto;
+  border-radius: 20px;
 
   h1{
     font-size: 1.2rem;

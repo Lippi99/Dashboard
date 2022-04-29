@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.header`
   width: 100%;
   padding: 1.5rem 0;
-  background: var(--lightBlack);
+  background: var(--darkBlack);
 
   nav {
     max-width: 1200px;
