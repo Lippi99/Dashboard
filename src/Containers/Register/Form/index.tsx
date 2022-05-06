@@ -16,6 +16,19 @@ import axios, { AxiosError } from "axios";
 
 import { SnackbarMessage } from "../../../components/Snackbar";
 import { NavLink } from "../../../components/Link";
+import { InputLabel, MenuItem, Select } from "@mui/material";
+import { ControlledInput } from "../../../components/ControlledInput";
+import { useForm } from "react-hook-form";
+// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+interface FormProps {
+  email: string;
+  name: string;
+  password: string;
+  passwordConfirm: string;
+}
 
 interface FormErrors {
   response: {
@@ -24,22 +37,15 @@ interface FormErrors {
 }
 
 export const Form = () => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [open, setOpen] = useState(false);
+  const { control } = useForm<FormProps>();
 
   const handleRegister = async (e: any) => {
-    const payload = { email, name, password };
     try {
-      const res = await api.post("user/api/register", payload);
+      const res = await api.post("user/api/register", "");
       const data = res.data;
       setOpen(true);
-      setEmail("");
-      setName("");
-      setPassword("");
-      setPasswordConfirm("");
+
       return data;
     } catch (error: unknown | AxiosError) {
       if (axios.isAxiosError(error)) {
@@ -62,45 +68,37 @@ export const Form = () => {
           <span style={{ marginLeft: "2rem" }}>Crie sua conta</span>
         </HeaderContainer>
         <InputContainer>
-          <InputField
-            value={email}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setEmail(e.target.value)
-            }
-            required={true}
-            type="email"
-            placeholder="Email"
-            autoComplete="off"
-          />
-
-          <InputField
-            value={name}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setName(e.target.value);
-            }}
-            required={true}
+          <ControlledInput
             type="text"
-            placeholder="Seu nome"
+            autoComplete="on"
+            required
+            placeholder="Nome"
+            name="name"
+            control={control}
           />
-
-          <InputField
-            value={password}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setPassword(e.target.value);
-            }}
-            required={true}
-            type="password"
-            placeholder="Sua senha"
+          <ControlledInput
+            type="text"
+            autoComplete="on"
+            required
+            placeholder="E-mail"
+            name="email"
+            control={control}
           />
-
-          <InputField
-            value={passwordConfirm}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setPasswordConfirm(e.target.value);
-            }}
-            required={true}
+          <ControlledInput
             type="password"
+            autoComplete="on"
+            required
+            placeholder="Digite sua senha"
+            name="password"
+            control={control}
+          />
+          <ControlledInput
+            type="passwordConfirm"
+            autoComplete="on"
+            required
             placeholder="Confirme sua senha"
+            name="passwordConfirm"
+            control={control}
           />
         </InputContainer>
         <PrivacyContainer>
@@ -124,15 +122,6 @@ export const Form = () => {
         <SnackbarMessage
           severity="success"
           message="Usuário cadastrado com sucesso!"
-          open={open}
-          setOpen={setOpen}
-        />
-      )}
-
-      {passwordConfirm !== password && (
-        <SnackbarMessage
-          severity="error"
-          message="As senhas não coincidem"
           open={open}
           setOpen={setOpen}
         />

@@ -1,3 +1,4 @@
+import moment from "moment";
 import {
   LineChart,
   Line,
@@ -15,11 +16,12 @@ interface ChartProps {
 }
 
 export const AreaChartGraph = ({ data }: ChartProps) => {
+
   return (
     <ResponsiveContainer width="99%" height={"80%"}>
       <AreaChart data={data}>
-        <XAxis dataKey="createdAt" />
-        <YAxis />
+        <XAxis interval={0} dataKey="createdAt" />
+        <YAxis interval={0} />
         <Tooltip />
         <Area
           fillOpacity={1}

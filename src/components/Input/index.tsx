@@ -1,13 +1,13 @@
 import { ChangeEvent } from "react";
 import { Input } from "./styles";
 
-interface InputProps {
+export interface InputProps {
   type: string;
   placeholder: string;
   autoComplete?: string;
   required: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  value?: string | number;
+  value?: string;
 }
 
 export const InputField = ({
@@ -20,7 +20,7 @@ export const InputField = ({
 }: InputProps) => {
   return (
     <Input
-      className={value !== "" ? "notEmpty" : ""}
+      className={value?.length == 0 ? "notEmpty" : ""}
       value={value}
       onChange={onChange}
       required={required}

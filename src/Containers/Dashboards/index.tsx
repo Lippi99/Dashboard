@@ -57,6 +57,12 @@ export const Dashboards = () => {
           const createdAtUpdated = moment(createdAt).format("D.MMM");
           const fullUpdatedCreated = moment(createdAt).format("LL");
 
+          const currentMonth = moment().format('MM')
+          const currentYear = moment().format("YYYY");
+
+          
+          console.log(moment().format('MMM'))
+
           filterUserUpdatedArr.push({
             createdAt: createdAtUpdated,
             fullCreatedAt: fullUpdatedCreated,
@@ -78,6 +84,7 @@ export const Dashboards = () => {
             } 
           });
           setFilterUser(preventDuplicatedElement);
+          console.log(filterUser)
           return filter;
         });
       } catch (error) {
