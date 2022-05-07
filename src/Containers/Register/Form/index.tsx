@@ -1,7 +1,11 @@
 import { SignUpButton } from "../../../components/Button/SignUp";
-import { InputField } from "../../../components/Input";
+import { NavLink } from "../../../components/Link";
+import { ControlledInput } from "../../../components/ControlledInput";
+import { useForm } from "react-hook-form";
+import { ControlledSelect } from "../../../components/ControlledSelect";
+import { ControlledDataPicker } from "../../../components/ControlledDataPicker";
 
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import { Select } from "antd";
 
 import {
   Container,
@@ -9,23 +13,15 @@ import {
   InputContainer,
   PrivacyContainer,
 } from "./styles";
-import Router from "next/router";
-import { ChangeEvent, FormEvent, Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { api } from "../../../service/api";
 import axios, { AxiosError } from "axios";
-
-import { SnackbarMessage } from "../../../components/Snackbar";
-import { NavLink } from "../../../components/Link";
-import { InputLabel, MenuItem, Select } from "@mui/material";
-import { ControlledInput } from "../../../components/ControlledInput";
-import { useForm } from "react-hook-form";
-// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 interface FormProps {
   email: string;
   name: string;
+  birth: Date;
+  genre: string;
   password: string;
   passwordConfirm: string;
 }
@@ -36,17 +32,19 @@ interface FormErrors {
   };
 }
 
+const { Option } = Select;
+
 export const Form = () => {
   const [open, setOpen] = useState(false);
-  const { control } = useForm<FormProps>();
+  const { control, handleSubmit } = useForm<FormProps>();
 
-  const handleRegister = async (e: any) => {
+  const handleRegister = async (data?: FormProps) => {
     try {
-      const res = await api.post("user/api/register", "");
-      const data = res.data;
+      const res = await api.post("user/api/register", data);
+      const dataRes = res.data;
       setOpen(true);
-
-      return data;
+      console.log(data);
+      return dataRes;
     } catch (error: unknown | AxiosError) {
       if (axios.isAxiosError(error)) {
         const { response } = error;
@@ -59,12 +57,9 @@ export const Form = () => {
 
   return (
     <Suspense>
-      <Container onSubmit={(e) => handleRegister(e.preventDefault())}>
+      <Container onSubmit={handleSubmit(handleRegister)}>
         <HeaderContainer style={{ color: "white" }}>
-          <NavLink
-            to="/"
-            value={<ArrowCircleLeftIcon style={{ color: "white" }} />}
-          />
+          <NavLink to="/" value={""} />
           <span style={{ marginLeft: "2rem" }}>Crie sua conta</span>
         </HeaderContainer>
         <InputContainer>
@@ -84,6 +79,36 @@ export const Form = () => {
             name="email"
             control={control}
           />
+          {/* <DatePicker
+            placeholder="Data de nascimento"
+            style={{
+              width: "100%",
+              height: "52px",
+              background: "#121214",
+              border: "1px solid #121214",
+              borderRadius: "10px",
+              margin: "2rem 0",
+            }}
+            format={dateFormatList}
+          /> */}
+          <ControlledDataPicker name="birth" control={control} />
+          <div style={{ width: "100%", marginBottom: "2rem" }}>
+            <ControlledSelect
+              control={control}
+              name="genre"
+              borderRadius="20px"
+              size="large"
+              width="100%"
+              placeholder="Selecione o seu gênero"
+            >
+              <Option value="Masculino">Masculino</Option>
+              <Option value="Feminino">Feminino</Option>
+              <Option value="Prefiro não me identificar">
+                Prefiro não me identificar
+              </Option>
+            </ControlledSelect>
+          </div>
+
           <ControlledInput
             type="password"
             autoComplete="on"
@@ -117,15 +142,6 @@ export const Form = () => {
           <SignUpButton />
         </div>
       </Container>
-
-      {open && (
-        <SnackbarMessage
-          severity="success"
-          message="Usuário cadastrado com sucesso!"
-          open={open}
-          setOpen={setOpen}
-        />
-      )}
     </Suspense>
   );
 };

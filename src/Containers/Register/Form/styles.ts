@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.form`
   max-width: 500px;
+  height: 740px;
   width: 100%;
+  overflow-y: auto;
   background-color: var(--lightBlack);
   margin: 0 auto;
   padding: 1rem 0;
@@ -27,6 +29,11 @@ export const InputContainer = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 1.5rem 4rem;
+
+  .ant-picker-input > input {
+    color: white;
+    border: none;
+  }
 `;
 
 export const PrivacyContainer = styled.div`
