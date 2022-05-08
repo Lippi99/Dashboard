@@ -10,6 +10,7 @@ import { Container, InputContainer } from "./styles";
 
 import axios, { AxiosError } from "axios";
 import { api } from "../../../service/api";
+import { openNotificationWithIcon } from "../../../components/Notification";
 
 export const Form = () => {
   const [email, setEmail] = useState("");
@@ -28,7 +29,7 @@ export const Form = () => {
       if (axios.isAxiosError(error)) {
         const { response } = error;
         if (response) {
-          alert(response.data.error);
+          openNotificationWithIcon("error", response.data.error);
         }
       }
     }
