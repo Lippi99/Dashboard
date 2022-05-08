@@ -9,6 +9,7 @@ import { Select } from "antd";
 
 import {
   Container,
+  GenreContainer,
   HeaderContainer,
   InputContainer,
   PrivacyContainer,
@@ -64,6 +65,7 @@ export const Form = () => {
         </HeaderContainer>
         <InputContainer>
           <ControlledInput
+            width="48%"
             type="text"
             autoComplete="on"
             required
@@ -72,6 +74,7 @@ export const Form = () => {
             control={control}
           />
           <ControlledInput
+            width="48%"
             type="text"
             autoComplete="on"
             required
@@ -79,26 +82,26 @@ export const Form = () => {
             name="email"
             control={control}
           />
-          {/* <DatePicker
-            placeholder="Data de nascimento"
-            style={{
-              width: "100%",
-              height: "52px",
-              background: "#121214",
-              border: "1px solid #121214",
-              borderRadius: "10px",
-              margin: "2rem 0",
-            }}
-            format={dateFormatList}
-          /> */}
-          <ControlledDataPicker name="birth" control={control} />
-          <div style={{ width: "100%", marginBottom: "2rem" }}>
+
+          <ControlledDataPicker
+            width="48%"
+            borderRadius="10px"
+            height="48px"
+            background="#121214"
+            border="1px solid #121214"
+            name="birth"
+            control={control}
+          />
+
+          <GenreContainer>
             <ControlledSelect
+              width="100%"
+              background="#121214"
+              border="1px solid #121214"
               control={control}
               name="genre"
               borderRadius="20px"
               size="large"
-              width="100%"
               placeholder="Selecione o seu gênero"
             >
               <Option value="Masculino">Masculino</Option>
@@ -107,9 +110,10 @@ export const Form = () => {
                 Prefiro não me identificar
               </Option>
             </ControlledSelect>
-          </div>
+          </GenreContainer>
 
           <ControlledInput
+            width="48%"
             type="password"
             autoComplete="on"
             required
@@ -118,6 +122,7 @@ export const Form = () => {
             control={control}
           />
           <ControlledInput
+            width="48%"
             type="passwordConfirm"
             autoComplete="on"
             required

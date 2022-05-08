@@ -7,6 +7,7 @@ export interface SelectInputProps {
   height?: string;
   border?: string;
   borderRadius?: string;
+  background?: string;
   children: ReactNode;
   padding?: string;
   placeholder?: string;
@@ -26,6 +27,7 @@ export const SelectInput = ({
   size,
   value,
   onChange,
+  background,
 }: SelectInputProps) => {
   return (
     <Select
@@ -33,7 +35,7 @@ export const SelectInput = ({
       size={size}
       value={value}
       placeholder={placeholder}
-      style={{ width, height, border, borderRadius, padding }}
+      style={{ width, height, border, borderRadius, padding, background }}
     >
       {children}
     </Select>

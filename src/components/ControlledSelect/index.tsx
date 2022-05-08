@@ -19,11 +19,7 @@ export const ControlledSelect = ({
         name={name}
         control={control}
         render={({ field: { onChange, value } }) => (
-          <SelectInput
-            value={value}
-            {...rest}
-            onChange={onChange}
-          ></SelectInput>
+          <SelectInput value={value} {...rest} onChange={onChange} />
         )}
       />
     </>

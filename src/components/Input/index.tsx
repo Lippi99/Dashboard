@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 import { Input } from "./styles";
 
 export interface InputProps {
+  width?: string;
   type: string;
   placeholder: string;
   autoComplete?: string;
@@ -11,6 +12,7 @@ export interface InputProps {
 }
 
 export const InputField = ({
+  width,
   type,
   placeholder,
   autoComplete,
@@ -20,6 +22,7 @@ export const InputField = ({
 }: InputProps) => {
   return (
     <Input
+      width={width}
       className={value?.length == 0 ? "notEmpty" : ""}
       value={value}
       onChange={onChange}

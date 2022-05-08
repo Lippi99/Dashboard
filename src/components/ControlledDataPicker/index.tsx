@@ -1,12 +1,16 @@
-import { DatePicker } from "antd";
 import { Control, Controller, FieldError } from "react-hook-form";
+import { string } from "yup";
 import { DataPicker } from "../DataPicker";
-import { InputProps } from "../Input";
 
 type ControllerProps = {
   control: Control<any>;
   name: string;
   error?: FieldError;
+  width?: string;
+  height?: string;
+  borderRadius?: string;
+  background?: string;
+  border?: string;
 };
 
 export const ControlledDataPicker = ({
