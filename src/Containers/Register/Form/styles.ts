@@ -39,6 +39,12 @@ export const InputContainer = styled.div`
   }
 `;
 
+export const InputGroup = styled.div`
+ width: 48%; 
+ display: flex;
+ flex-direction: column;
+`;
+
 export const GenreContainer = styled.div`
   width: 48%;
  > div:nth-child(1) > div:nth-child(1) {

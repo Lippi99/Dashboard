@@ -13,6 +13,7 @@ import {
   GenreContainer,
   HeaderContainer,
   InputContainer,
+  InputGroup,
   PrivacyContainer,
 } from "./styles";
 import { Suspense } from "react";
@@ -46,7 +47,6 @@ export const Form = () => {
     try {
       const res = await api.post("user/api/register", data);
       const dataRes = res.data;
-
       reset();
       console.log(data);
       openNotificationWithIcon("success", "Usuário registrado com sucesso!");
@@ -62,116 +62,108 @@ export const Form = () => {
   };
 
   return (
-    <Suspense>
-      <Container onSubmit={handleSubmit(handleRegister)}>
-        <HeaderContainer style={{ color: "white" }}>
-          <NavLink to="/" value={""} />
-          <span style={{ marginLeft: "2rem" }}>Crie sua conta</span>
-        </HeaderContainer>
-        <InputContainer>
-          <div
-            style={{ width: "48%", display: "flex", flexDirection: "column" }}
-          >
-            <ControlledInput
-              width="100%"
-              type="text"
-              placeholder="Nome"
-              name="name"
-              control={control}
-              error={errors.name}
-            />
-          </div>
-          <div
-            style={{ width: "48%", display: "flex", flexDirection: "column" }}
-          >
-            <ControlledInput
-              width="100%"
-              type="text"
-              placeholder="E-mail"
-              name="email"
-              control={control}
-              error={errors.email}
-            />
-          </div>
-          <div
-            style={{ width: "48%", display: "flex", flexDirection: "column" }}
-          >
-            <ControlledDataPicker
-              width="100%"
-              borderRadius="10px"
-              height="48px"
-              background="#121214"
-              border="1px solid #121214"
-              name="birth"
-              control={control}
-              error={errors.birth}
-            />
-          </div>
+    <Container onSubmit={handleSubmit(handleRegister)}>
+      <HeaderContainer style={{ color: "white" }}>
+        <span style={{ width: "100%", textAlign: "center" }}>
+          Crie sua conta
+        </span>
+      </HeaderContainer>
+      <InputContainer>
+        <InputGroup>
+          <ControlledInput
+            width="100%"
+            type="text"
+            placeholder="Nome"
+            name="name"
+            control={control}
+            error={errors.name}
+          />
+        </InputGroup>
+        <InputGroup>
+          <ControlledInput
+            width="100%"
+            type="text"
+            placeholder="E-mail"
+            name="email"
+            control={control}
+            error={errors.email}
+          />
+        </InputGroup>
+        <InputGroup>
+          <ControlledDataPicker
+            width="100%"
+            borderRadius="10px"
+            height="48px"
+            background="#121214"
+            border="1px solid #121214"
+            name="birth"
+            control={control}
+            error={errors.birth}
+          />
+        </InputGroup>
 
-          <GenreContainer>
-            <ControlledSelect
-              width="100%"
-              background="#121214"
-              border="1px solid #121214"
-              control={control}
-              name="gender"
-              borderRadius="20px"
-              size="large"
-              placeholder="Selecione o seu gênero"
-              error={errors.gender}
-            >
-              <Option value="Masculino">Masculino</Option>
-              <Option value="Feminino">Feminino</Option>
-              <Option value="Prefiro não me identificar">
-                Prefiro não me identificar
-              </Option>
-            </ControlledSelect>
-          </GenreContainer>
-
-          <div
-            style={{ width: "48%", display: "flex", flexDirection: "column" }}
+        <GenreContainer>
+          <ControlledSelect
+            width="100%"
+            background="#121214"
+            border="1px solid #121214"
+            control={control}
+            name="gender"
+            borderRadius="20px"
+            size="large"
+            placeholder="Selecione o seu gênero"
+            error={errors.gender}
           >
-            <ControlledInput
-              width="100%"
-              type="password"
-              autoComplete="on"
-              placeholder="Digite sua senha"
-              name="password"
-              control={control}
-              error={errors.password}
-            />
-          </div>
+            <Option value="Masculino">Masculino</Option>
+            <Option value="Feminino">Feminino</Option>
+            <Option value="Prefiro não me identificar">
+              Prefiro não me identificar
+            </Option>
+          </ControlledSelect>
+        </GenreContainer>
 
-          <div
-            style={{ width: "48%", display: "flex", flexDirection: "column" }}
+        <InputGroup>
+          <ControlledInput
+            width="100%"
+            type="password"
+            autoComplete="on"
+            placeholder="Digite sua senha"
+            name="password"
+            control={control}
+            error={errors.password}
+          />
+        </InputGroup>
+
+        <InputGroup>
+          <ControlledInput
+            width="100%"
+            type="password"
+            autoComplete="on"
+            placeholder="Confirme sua senha"
+            name="passwordConfirm"
+            control={control}
+            error={errors.passwordConfirm}
+          />
+        </InputGroup>
+      </InputContainer>
+      <PrivacyContainer>
+        <span>
+          Ao se registrar, você aceita nossos{" "}
+          <a
+            target="_blank"
+            href="https://www.rocketseat.com.br/"
+            rel="noreferrer"
           >
-            <ControlledInput
-              width="100%"
-              type="password"
-              autoComplete="on"
-              placeholder="Confirme sua senha"
-              name="passwordConfirm"
-              control={control}
-              error={errors.passwordConfirm}
-            />
-          </div>
-        </InputContainer>
-        <PrivacyContainer>
-          <span>
-            Ao se registrar, você aceita nossos{" "}
-            <a
-              target="_blank"
-              href="https://www.rocketseat.com.br/"
-              rel="noreferrer"
-            >
-              termos de uso e a nossa política de privacidade
-            </a>
-          </span>
-        </PrivacyContainer>
-        <div style={{ padding: "0 4rem" }}>
-          <SignUpButton type="submit" />
-        </div>
-      </Container>
-    </Suspense>
+            termos de uso e a nossa política de privacidade
+          </a>
+        </span>
+      </PrivacyContainer>
+      <div style={{ padding: "0 4rem" }}>
+        <SignUpButton type="submit" />
+      </div>
+      <div style={{ textAlign: "center", marginTop: "1rem" }}>
+        <NavLink to="/" value={"Voltar para o login"} />
+      </div>
+    </Container>
   );
 };
