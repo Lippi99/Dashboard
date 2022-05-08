@@ -38,6 +38,7 @@ export const Form = () => {
     <Container onSubmit={(e) => handleLogin(e.preventDefault())}>
       <InputContainer>
         <InputField
+          width="100%"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           required={true}
@@ -45,6 +46,7 @@ export const Form = () => {
           placeholder="Email"
         />
         <InputField
+          width="100%"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           autoComplete="on"

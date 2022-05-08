@@ -14,4 +14,10 @@ export const InputContainer = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 1rem 0;
+
+  > input {
+    + input {
+      margin-top: 2rem;
+    }
+  }
 `;

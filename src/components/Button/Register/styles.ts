@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   margin-top: 1rem;
   width: 100%;
@@ -13,6 +14,7 @@ export const Container = styled.div`
     font-size: 1rem;
     margin-right: 0.5rem;
     font-weight: normal;
+    margin-bottom: 0;
   }
 `;
 
