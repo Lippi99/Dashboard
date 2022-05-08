@@ -1,9 +1,6 @@
 import Head from "next/head";
 import { Dashboards } from "../../src/Containers/Dashboards";
 
-
-
-
 export const Home = () => {
   return (
     <>

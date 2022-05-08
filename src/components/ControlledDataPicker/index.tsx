@@ -1,6 +1,7 @@
 import { Control, Controller, FieldError } from "react-hook-form";
 import { string } from "yup";
 import { DataPicker } from "../DataPicker";
+import { Error } from "./styles";
 
 type ControllerProps = {
   control: Control<any>;
@@ -22,12 +23,14 @@ export const ControlledDataPicker = ({
   return (
     <>
       <Controller
+        defaultValue=""
         name={name}
         control={control}
         render={({ field: { onChange, value } }) => (
           <DataPicker value={value} {...rest} onChange={onChange} />
         )}
       />
+      {error && <Error>{error.message}</Error>}
     </>
   );
 };

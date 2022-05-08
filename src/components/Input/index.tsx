@@ -6,7 +6,7 @@ export interface InputProps {
   type: string;
   placeholder: string;
   autoComplete?: string;
-  required: boolean;
+  required?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   value?: string;
 }
@@ -23,8 +23,8 @@ export const InputField = ({
   return (
     <Input
       width={width}
-      className={value?.length == 0 ? "notEmpty" : ""}
       value={value}
+      // className={value?.length == 0 ? "notEmpty" : "notEmpty"}
       onChange={onChange}
       required={required}
       autoComplete={autoComplete}

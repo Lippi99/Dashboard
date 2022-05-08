@@ -4,8 +4,9 @@ import { ControlledInput } from "../../../components/ControlledInput";
 import { useForm } from "react-hook-form";
 import { ControlledSelect } from "../../../components/ControlledSelect";
 import { ControlledDataPicker } from "../../../components/ControlledDataPicker";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Select } from "antd";
+import { notification, Select } from "antd";
 
 import {
   Container,
@@ -17,12 +18,14 @@ import {
 import { Suspense, useState } from "react";
 import { api } from "../../../service/api";
 import axios, { AxiosError } from "axios";
+import { schema } from "./schema";
+import { NotificationApi } from "antd/lib/notification";
 
 interface FormProps {
   email: string;
   name: string;
-  birth: Date;
-  genre: string;
+  birth: string;
+  gender: string;
   password: string;
   passwordConfirm: string;
 }
@@ -36,15 +39,29 @@ interface FormErrors {
 const { Option } = Select;
 
 export const Form = () => {
-  const [open, setOpen] = useState(false);
-  const { control, handleSubmit } = useForm<FormProps>();
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormProps>({
+    resolver: yupResolver(schema),
+  });
 
-  const handleRegister = async (data?: FormProps) => {
+  const openNotificationWithIcon = (type: NotificationApi) => {
+    notification[type]({
+      message: "Usuário registrado com sucesso!",
+    });
+  };
+
+  const handleRegister = async (data: FormProps) => {
     try {
       const res = await api.post("user/api/register", data);
       const dataRes = res.data;
-      setOpen(true);
+
+      reset({ name: "", birth: "" });
       console.log(data);
+      openNotificationWithIcon("success" as any);
       return dataRes;
     } catch (error: unknown | AxiosError) {
       if (axios.isAxiosError(error)) {
@@ -64,34 +81,44 @@ export const Form = () => {
           <span style={{ marginLeft: "2rem" }}>Crie sua conta</span>
         </HeaderContainer>
         <InputContainer>
-          <ControlledInput
-            width="48%"
-            type="text"
-            autoComplete="on"
-            required
-            placeholder="Nome"
-            name="name"
-            control={control}
-          />
-          <ControlledInput
-            width="48%"
-            type="text"
-            autoComplete="on"
-            required
-            placeholder="E-mail"
-            name="email"
-            control={control}
-          />
-
-          <ControlledDataPicker
-            width="48%"
-            borderRadius="10px"
-            height="48px"
-            background="#121214"
-            border="1px solid #121214"
-            name="birth"
-            control={control}
-          />
+          <div
+            style={{ width: "48%", display: "flex", flexDirection: "column" }}
+          >
+            <ControlledInput
+              width="100%"
+              type="text"
+              placeholder="Nome"
+              name="name"
+              control={control}
+              error={errors.name}
+            />
+          </div>
+          <div
+            style={{ width: "48%", display: "flex", flexDirection: "column" }}
+          >
+            <ControlledInput
+              width="100%"
+              type="text"
+              placeholder="E-mail"
+              name="email"
+              control={control}
+              error={errors.email}
+            />
+          </div>
+          <div
+            style={{ width: "48%", display: "flex", flexDirection: "column" }}
+          >
+            <ControlledDataPicker
+              width="100%"
+              borderRadius="10px"
+              height="48px"
+              background="#121214"
+              border="1px solid #121214"
+              name="birth"
+              control={control}
+              error={errors.birth}
+            />
+          </div>
 
           <GenreContainer>
             <ControlledSelect
@@ -99,10 +126,11 @@ export const Form = () => {
               background="#121214"
               border="1px solid #121214"
               control={control}
-              name="genre"
+              name="gender"
               borderRadius="20px"
               size="large"
               placeholder="Selecione o seu gênero"
+              error={errors.gender}
             >
               <Option value="Masculino">Masculino</Option>
               <Option value="Feminino">Feminino</Option>
@@ -112,24 +140,33 @@ export const Form = () => {
             </ControlledSelect>
           </GenreContainer>
 
-          <ControlledInput
-            width="48%"
-            type="password"
-            autoComplete="on"
-            required
-            placeholder="Digite sua senha"
-            name="password"
-            control={control}
-          />
-          <ControlledInput
-            width="48%"
-            type="passwordConfirm"
-            autoComplete="on"
-            required
-            placeholder="Confirme sua senha"
-            name="passwordConfirm"
-            control={control}
-          />
+          <div
+            style={{ width: "48%", display: "flex", flexDirection: "column" }}
+          >
+            <ControlledInput
+              width="100%"
+              type="password"
+              autoComplete="on"
+              placeholder="Digite sua senha"
+              name="password"
+              control={control}
+              error={errors.password}
+            />
+          </div>
+
+          <div
+            style={{ width: "48%", display: "flex", flexDirection: "column" }}
+          >
+            <ControlledInput
+              width="100%"
+              type="password"
+              autoComplete="on"
+              placeholder="Confirme sua senha"
+              name="passwordConfirm"
+              control={control}
+              error={errors.passwordConfirm}
+            />
+          </div>
         </InputContainer>
         <PrivacyContainer>
           <span>
@@ -144,7 +181,7 @@ export const Form = () => {
           </span>
         </PrivacyContainer>
         <div style={{ padding: "0 4rem" }}>
-          <SignUpButton />
+          <SignUpButton type="submit" />
         </div>
       </Container>
     </Suspense>

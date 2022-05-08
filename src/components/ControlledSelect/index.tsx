@@ -1,5 +1,6 @@
 import { Control, Controller, FieldError } from "react-hook-form";
 import { SelectInput, SelectInputProps } from "../Select";
+import { Error } from "./styles";
 
 type ControllerProps = SelectInputProps & {
   control: Control<any>;
@@ -22,6 +23,7 @@ export const ControlledSelect = ({
           <SelectInput value={value} {...rest} onChange={onChange} />
         )}
       />
+      {error && <Error>{error.message}</Error>}
     </>
   );
 };

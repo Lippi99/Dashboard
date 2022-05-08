@@ -25,8 +25,8 @@ export const SelectInput = ({
   padding,
   children,
   size,
-  value,
   onChange,
+  value,
   background,
 }: SelectInputProps) => {
   return (

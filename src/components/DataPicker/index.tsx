@@ -13,8 +13,8 @@ interface DatePickerProps {
 export const DataPicker = ({
   width,
   onChange,
-  value,
   height,
+  value,
   background,
   borderRadius,
   border,
@@ -22,9 +22,9 @@ export const DataPicker = ({
   const dateFormatList = ["DD/MM/YYYY", "DD/MM/YY"];
   return (
     <DatePicker
+      value={value}
       size="large"
       style={{ width, height, borderRadius, background, border }}
-      value={value}
       onChange={onChange}
       format={dateFormatList}
     />

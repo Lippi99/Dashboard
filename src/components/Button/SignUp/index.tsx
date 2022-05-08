@@ -1,6 +1,9 @@
-import { ChangeEvent, FormEvent } from "react";
 import { SignUpBtn } from "./styles";
 
-export const SignUpButton = () => {
-  return <SignUpBtn>Cadastrar</SignUpBtn>;
+interface SignUpButtonProps {
+  type?: any;
+}
+
+export const SignUpButton = ({ type }: SignUpButtonProps) => {
+  return <SignUpBtn type={type}>Cadastrar</SignUpBtn>;
 };

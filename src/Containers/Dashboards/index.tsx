@@ -4,7 +4,6 @@ import { AreaChartGraph } from "../../components/Charts/Line";
 import { Container, GridItem, InnerContainer } from "./styles";
 import { LineChartGraph } from "../../components/Charts/BarColumn";
 import { useEffect, useState } from "react";
-import { SelectChangeEvent } from "@mui/material";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { api } from "../../service/api";
@@ -57,11 +56,10 @@ export const Dashboards = () => {
           const createdAtUpdated = moment(createdAt).format("D.MMM");
           const fullUpdatedCreated = moment(createdAt).format("LL");
 
-          const currentMonth = moment().format('MM')
+          const currentMonth = moment().format("MM");
           const currentYear = moment().format("YYYY");
 
-          
-          console.log(moment().format('MMM'))
+          console.log(moment().format("MMM"));
 
           filterUserUpdatedArr.push({
             createdAt: createdAtUpdated,
@@ -81,10 +79,10 @@ export const Dashboards = () => {
           preventDuplicatedElement.map((element) => {
             if (fullUpdatedCreated === element.fullCreatedAt) {
               element.total++;
-            } 
+            }
           });
           setFilterUser(preventDuplicatedElement);
-          console.log(filterUser)
+          console.log(filterUser);
           return filter;
         });
       } catch (error) {
@@ -94,13 +92,12 @@ export const Dashboards = () => {
     fetchData();
   }, [filter]);
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChange = (event: any) => {
     return setFilter(event.target.value as string);
   };
 
-  let countUsers = 0;
-  filterUser.forEach((total) => (countUsers += total.total || 0));
-
+  // let countUsers = 0;
+  // filterUser.forEach((total) => (countUsers += total.total || 0));
 
   return (
     <Container>
@@ -111,7 +108,7 @@ export const Dashboards = () => {
           width="90%"
           height="400px"
           padding="1rem 1rem 0 1rem"
-          title={`${countUsers} Novos usuários`}
+          title={`9 Novos usuários`}
           description={
             filter === "7"
               ? "Na última semana"

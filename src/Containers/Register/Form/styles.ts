@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.form`
   max-width: 700px;
-  height: 450px;
+
   width: 100%;
   overflow-y: auto;
   border-radius: 10px;
