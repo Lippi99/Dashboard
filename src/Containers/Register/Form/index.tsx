@@ -6,7 +6,7 @@ import { ControlledSelect } from "../../../components/ControlledSelect";
 import { ControlledDataPicker } from "../../../components/ControlledDataPicker";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { notification, Select } from "antd";
+import { Select } from "antd";
 
 import {
   Container,
@@ -15,11 +15,11 @@ import {
   InputContainer,
   PrivacyContainer,
 } from "./styles";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { api } from "../../../service/api";
 import axios, { AxiosError } from "axios";
 import { schema } from "./schema";
-import { NotificationApi } from "antd/lib/notification";
+import { openNotificationWithIcon } from "../../../components/Notification";
 
 interface FormProps {
   email: string;
@@ -28,12 +28,6 @@ interface FormProps {
   gender: string;
   password: string;
   passwordConfirm: string;
-}
-
-interface FormErrors {
-  response: {
-    conflict: string;
-  };
 }
 
 const { Option } = Select;
@@ -48,26 +42,20 @@ export const Form = () => {
     resolver: yupResolver(schema),
   });
 
-  const openNotificationWithIcon = (type: NotificationApi) => {
-    notification[type]({
-      message: "Usuário registrado com sucesso!",
-    });
-  };
-
   const handleRegister = async (data: FormProps) => {
     try {
       const res = await api.post("user/api/register", data);
       const dataRes = res.data;
 
-      reset({ name: "", birth: "" });
+      reset();
       console.log(data);
-      openNotificationWithIcon("success" as any);
+      openNotificationWithIcon("success", "Usuário registrado com sucesso!");
       return dataRes;
     } catch (error: unknown | AxiosError) {
       if (axios.isAxiosError(error)) {
         const { response } = error;
         if (response) {
-          alert(response.data.conflict);
+          openNotificationWithIcon("error", response.data.conflict);
         }
       }
     }
