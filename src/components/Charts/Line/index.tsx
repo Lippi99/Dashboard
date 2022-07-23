@@ -12,11 +12,10 @@ import {
 } from "recharts";
 
 interface ChartProps {
-  data: any;
+  data: any[];
 }
 
 export const AreaChartGraph = ({ data }: ChartProps) => {
-
   return (
     <ResponsiveContainer width="99%" height={"80%"}>
       <AreaChart data={data}>
@@ -29,7 +28,7 @@ export const AreaChartGraph = ({ data }: ChartProps) => {
           type="linear"
           strokeWidth={2}
           dot={{ stroke: "#ffffff", strokeWidth: 2, r: 4, strokeDasharray: "" }}
-          dataKey="total"
+          dataKey="birth"
           stroke="#81c995"
           fill="#3e9256"
         />

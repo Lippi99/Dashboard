@@ -16,11 +16,11 @@ import {
   InputGroup,
   PrivacyContainer,
 } from "./styles";
-import { Suspense } from "react";
-import { api } from "../../../service/api";
+import { api } from "../../../services/api";
 import axios, { AxiosError } from "axios";
 import { schema } from "./schema";
 import { openNotificationWithIcon } from "../../../components/Notification";
+import moment from "moment";
 
 interface FormProps {
   email: string;
@@ -47,8 +47,8 @@ export const Form = () => {
     try {
       const res = await api.post("user/api/register", data);
       const dataRes = res.data;
+
       reset();
-      console.log(data);
       openNotificationWithIcon("success", "Usuário registrado com sucesso!");
       return dataRes;
     } catch (error: unknown | AxiosError) {

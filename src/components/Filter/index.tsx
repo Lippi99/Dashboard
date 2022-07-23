@@ -1,38 +1,21 @@
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
+import { Select } from "antd";
+import { SelectInput } from "../Select";
 import { Container } from "./styles";
 
 interface FilterProps {
-  handleChange: (event: SelectChangeEvent) => void;
+  handleChange: (event: any) => void;
 }
 
 export const Filter = ({ handleChange }: FilterProps) => {
+  const { Option } = Select;
   return (
     <Container>
-      <div style={{ maxWidth: 300 }}>
-        {/* <div>
-          <input id="demo-simple-select-label">Filtro</input>
-          <Select
-            defaultValue="7"
-            style={{ background: "white" }}
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="date"
-            onChange={handleChange}
-          >
-            <MenuItem value={"7"}>Últimos 7 dias</MenuItem>
-            <MenuItem value={"15"}>Últimos 15 dias</MenuItem>
-            <MenuItem value={"30"}>Últimos 30 dias</MenuItem>
-            <MenuItem value={"90"}>Últimos 90 dias</MenuItem>
-          </Select>
-        </div> */}
-      </div>
+      <SelectInput defaultValue="7" width="200px" onChange={handleChange}>
+        <Option value="7">Últimos 7 dias</Option>
+        <Option value="15">Últimos 15 dias</Option>
+        <Option value="30">Últimos 30 dias</Option>
+        <Option value="90">últimos 90 dias</Option>
+      </SelectInput>
     </Container>
   );
 };

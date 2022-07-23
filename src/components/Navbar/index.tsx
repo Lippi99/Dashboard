@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { NavLink } from "../Link";
 import { Container } from "./styles";
 
@@ -8,7 +10,6 @@ export const NavBar = () => {
         <ul>
           <NavLink value="Dashboards" to="/home/dashboards" />
         </ul>
-        teste
       </nav>
     </Container>
   );

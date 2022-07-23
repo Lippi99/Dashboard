@@ -3,24 +3,27 @@ import { Card } from "../../components/Card";
 import { AreaChartGraph } from "../../components/Charts/Line";
 import { Container, GridItem, InnerContainer } from "./styles";
 import { LineChartGraph } from "../../components/Charts/BarColumn";
-import { useEffect, useState } from "react";
-import moment from "moment";
+import { useContext, useState } from "react";
 import "moment/locale/pt-br";
-import { api } from "../../service/api";
+import "moment/locale/pt-br";
 import { Filter } from "../../components/Filter";
+import { AuthContext } from "../../context/AuthContext";
 
 interface FilterProps {
   createdAt: string;
-  fullCreatedAt: string;
+  createdAtFormatted: string;
   email?: string;
   name?: string;
   total: number;
   password?: string;
+  genre?: string;
 }
 
 export const Dashboards = () => {
   const [filter, setFilter] = useState("7");
   const [filterUser, setFilterUser] = useState<FilterProps[]>([]);
+
+  const user = useContext(AuthContext);
 
   const data1 = [
     {
@@ -33,87 +36,62 @@ export const Dashboards = () => {
     },
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const currentDate = moment.utc();
-      const dateFormat = "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]";
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     moment.locale("pt-br");
+  //     const currentDate = moment().utc().format();
+  //     const dateToBeFiltered = moment.utc().subtract(filter, "days").format();
+  //     const queryDate = `fromDate=${currentDate}&toDate=${dateToBeFiltered}`;
 
-      const compareDates = moment.utc().subtract(filter, "days");
-      const formatDate = compareDates.format(dateFormat);
+  //     const filterUserUpdated = [];
 
-      const currentDateFormatted = currentDate.format(dateFormat);
-      const queryDate = `fromDate=${currentDateFormatted}&toDate=${formatDate}`;
+  //     try {
+  //       const res = await api.get(`dashboards/api/filter?${queryDate}`);
 
-      try {
-        const res = await api.get(`dashboards/api/filter?${queryDate}`);
-        const data = res.data;
+  //       const data: FilterProps[] = await res.data;
 
-        let filterUserUpdatedArr: FilterProps[] = [];
+  //       let found = Object.keys(data).find((element) => {
+  //         return element === "12 de maio de 2022";
+  //       });
 
-        const filter = data.map((user: FilterProps) => {
-          const { createdAt } = user;
-          moment.locale("pt-br");
-          const createdAtUpdated = moment(createdAt).format("D.MMM");
-          const fullUpdatedCreated = moment(createdAt).format("LL");
+  //       data["occurrences"] = found ? data["occurrences"] + 1 : 1;
 
-          const currentMonth = moment().format("MM");
-          const currentYear = moment().format("YYYY");
+  //       setFilterUser(filterUserUpdated as any);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [filter]);
 
-          console.log(moment().format("MMM"));
-
-          filterUserUpdatedArr.push({
-            createdAt: createdAtUpdated,
-            fullCreatedAt: fullUpdatedCreated,
-            total: 0,
-          });
-
-          let preventDuplicatedElement = filterUserUpdatedArr.filter(
-            (value, index, self) =>
-              index ===
-              self.findIndex(
-                (t) =>
-                  t.createdAt === value.createdAt &&
-                  t.createdAt === value.createdAt
-              )
-          );
-          preventDuplicatedElement.map((element) => {
-            if (fullUpdatedCreated === element.fullCreatedAt) {
-              element.total++;
-            }
-          });
-          setFilterUser(preventDuplicatedElement);
-          console.log(filterUser);
-          return filter;
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, [filter]);
-
-  const handleChange = (event: any) => {
-    return setFilter(event.target.value as string);
+  const handleChange = (event: string) => {
+    return setFilter(event);
   };
-
-  // let countUsers = 0;
-  // filterUser.forEach((total) => (countUsers += total.total || 0));
 
   return (
     <Container>
       <NavBar />
+      <div style={{ padding: "1rem 1rem 0 1rem" }}>
+        <h1 style={{ color: "white" }}>{`${
+          user && user.user?.gender === "Feminino"
+            ? `Seja bem vinda, ${user.user?.name}`
+            : `Seja bem vindo, ${user.user?.name}`
+        }`}</h1>
+      </div>
       <Filter handleChange={handleChange} />
       <GridItem>
         <Card
           width="90%"
           height="400px"
           padding="1rem 1rem 0 1rem"
-          title={`9 Novos usuários`}
+          title={`${filterUser.length} Novos usuários`}
           description={
             filter === "7"
               ? "Na última semana"
               : filter === "15"
               ? "Nas últimas semanas"
+              : filter === "30"
+              ? "No último mês"
               : "Nos últimos meses"
           }
         >

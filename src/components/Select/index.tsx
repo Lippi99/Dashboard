@@ -14,6 +14,7 @@ export interface SelectInputProps {
   size?: SizeType;
   value?: any;
   onChange?: any;
+  defaultValue?: any;
 }
 
 export const SelectInput = ({
@@ -28,9 +29,11 @@ export const SelectInput = ({
   onChange,
   value,
   background,
+  defaultValue,
 }: SelectInputProps) => {
   return (
     <Select
+      defaultValue={defaultValue}
       onChange={onChange}
       size={size}
       value={value}

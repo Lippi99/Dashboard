@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { GitHubSection } from "../../../components/Button/Github";
 import { RegisterButton } from "../../../components/Button/Register";
 import { SignInButton } from "../../../components/Button/Signin";
@@ -9,30 +9,21 @@ import { InputField } from "../../../components/Input";
 import { Container, InputContainer } from "./styles";
 
 import axios, { AxiosError } from "axios";
-import { api } from "../../../service/api";
+import { api } from "../../../services/api";
 import { openNotificationWithIcon } from "../../../components/Notification";
+import { AuthContext } from "../../../context/AuthContext";
 
 export const Form = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { signIn } = useContext(AuthContext);
+
   const router = useRouter();
 
   const handleLogin = async (e: any) => {
     const payload = { email, password };
-    try {
-      const res = await api.post("user/api/login", payload);
-      const data = res.data;
-      router.push("/home");
-      return data;
-    } catch (error: unknown | AxiosError) {
-      if (axios.isAxiosError(error)) {
-        const { response } = error;
-        if (response) {
-          openNotificationWithIcon("error", response.data.error);
-        }
-      }
-    }
+    await signIn(payload);
   };
 
   return (
