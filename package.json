@@ -26,6 +26,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@types/cookie": "^0.5.1",
     "@types/node": "17.0.23",
     "@types/react": "18.0.1",

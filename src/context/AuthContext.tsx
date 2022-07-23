@@ -7,6 +7,8 @@ interface AuthContextData {
   isAuthenticated: boolean;
   user: User | null;
   signIn: (data: SignInData) => Promise<void>;
+  isLoading: boolean;
+  setIsLoading?: (value: boolean) => void;
 }
 
 interface SignInData {
@@ -29,6 +31,7 @@ export const AuthContext = createContext({} as AuthContextData);
 
 export const AuthProvider = ({ children }: Children) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const isAuthenticated = !!user;
 
@@ -61,6 +64,7 @@ export const AuthProvider = ({ children }: Children) => {
   }, []);
 
   const signIn = async ({ email, password }: SignInData) => {
+    setIsLoading(true);
     try {
       const response = await api.post("user/api/login", {
         email,
@@ -73,14 +77,16 @@ export const AuthProvider = ({ children }: Children) => {
         maxAge: expireToken,
       });
       setUser(user);
-
       Router.push("/home");
+      setIsLoading(true);
       await recoverMe();
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(true);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

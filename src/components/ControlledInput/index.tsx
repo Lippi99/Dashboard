@@ -19,7 +19,6 @@ export const ControlledInput = ({
   return (
     <>
       <Controller
-        defaultValue=""
         name={name}
         control={control}
         render={({ field: { onChange, value } }) => (
