@@ -50,6 +50,9 @@ export const AuthProvider = ({ children }: Children) => {
       const { "nextAuth.token": token } = parseCookies();
       if (token) {
         await recoverMe();
+        if (Router.pathname === "/") {
+          Router.push("/home");
+        }
       } else {
         Router.push("/");
       }
