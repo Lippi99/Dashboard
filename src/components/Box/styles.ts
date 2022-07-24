@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 interface ContentProps {
+  maxWidth: string | number;
   width: string | number;
+  height: string | number;
   background: string;
   minHeight: string | number;
   overflowY: string | number;
@@ -21,7 +23,9 @@ interface ContentProps {
 }
 
 export const Content = styled.div<ContentProps>`
+  max-width: ${(props) => props.maxWidth};
   width: ${(props) => props.width};
+  height: ${props => props.height};
   background: ${(props) => props.background};
   min-height: ${(props) => props.minHeight};
   overflow-y: ${(props) => props.overflowY};

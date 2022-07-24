@@ -7,8 +7,9 @@ export interface SelectInputProps {
   width?: string;
   height?: string;
   border?: string;
+  color?: string;
   borderRadius?: string;
-  background?: string;
+  backgroundColor?: string;
   children: ReactNode;
   padding?: string;
   placeholder?: string;
@@ -22,6 +23,7 @@ export const SelectInput = ({
   width,
   height,
   border,
+  color,
   borderRadius,
   placeholder,
   padding,
@@ -29,18 +31,22 @@ export const SelectInput = ({
   size,
   onChange,
   value,
-  background,
+  backgroundColor,
   defaultValue,
 }: SelectInputProps) => {
   return (
-    <Container>
+    <Container
+      color={color!}
+      backgroundColor={backgroundColor!}
+      border={border!}
+    >
       <Select
         defaultValue={defaultValue}
         onChange={onChange}
         size={size}
         value={value}
         placeholder={placeholder}
-        style={{ width, height, border, borderRadius, padding, background }}
+        style={{ width, height, borderRadius, padding }}
       >
         {children}
       </Select>

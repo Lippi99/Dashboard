@@ -11,7 +11,7 @@ export const Container = styled.div<CardProps>`
   height: ${props => props.height};
   padding: ${props => props.padding};
   background: var(--lightBlack);
-  margin: 2rem auto;
+  margin-top: 3rem;
   border-radius: 20px;
 
   h1{

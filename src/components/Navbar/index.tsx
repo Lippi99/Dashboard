@@ -9,6 +9,8 @@ export const NavBar = () => {
       <nav>
         <ul>
           <NavLink value="Dashboards" to="/home/dashboards" />
+          <NavLink value="About me" to="/home/dashboards" />
+          <NavLink value="About creator" to="/home/dashboards" />
         </ul>
       </nav>
     </Container>

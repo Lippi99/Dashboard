@@ -139,7 +139,8 @@ export const SignUp = () => {
             <Flex width="48%" direction="column">
               <ControlledSelect
                 width="100%"
-                background="#121214"
+                backgroundColor="#121214"
+                color="white"
                 border="1px solid #121214"
                 control={control}
                 name="gender"

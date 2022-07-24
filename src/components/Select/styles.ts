@@ -1,10 +1,17 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+interface SelectProps {
+  backgroundColor: string;
+  border: string;
+  color: string;
+}
+// #121214
+
+export const Container = styled.div<SelectProps>`
  > div:nth-child(1) > div:nth-child(1) {
-   background-color: #121214;
-   border: 1px solid #121214;
-   color: white;
+   background-color: ${props => props.backgroundColor};
+   border: ${props => props.border};
+   color: black;
 
    > .ant-select-selection-placeholder {
     color: gray;
@@ -21,6 +28,6 @@ export const Container = styled.div`
 
 
   .ant-select-selection-item {
-    color: white;
+    color: ${props => props.color};
   }
 `;

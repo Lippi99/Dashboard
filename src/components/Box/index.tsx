@@ -2,12 +2,14 @@ import { ReactNode } from "react";
 import { Content } from "./styles";
 
 interface BoxProps {
+  maxWidth?: string | number;
   width?: string | number;
+  height?: string | number;
   background?: string;
   minHeight?: string | number;
   overflowY?: string | number;
   opacity?: string | number;
-  position?: string | number;
+  position?: "absolute" | "relative" | "fixed";
   top?: string | number;
   right?: string | number;
   bottom?: string | number;
@@ -24,7 +26,9 @@ interface BoxProps {
 }
 
 export const Box = ({
+  maxWidth,
   width,
+  height,
   background,
   minHeight,
   overflowY,
@@ -47,6 +51,7 @@ export const Box = ({
   return (
     <Content
       width={width}
+      height={height}
       background={background}
       minHeight={minHeight}
       overflowY={overflowY}
