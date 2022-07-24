@@ -3,7 +3,14 @@ import { Input } from "./styles";
 
 export interface InputProps {
   width?: string;
-  type: string;
+  type:
+    | "text"
+    | "email"
+    | "password"
+    | "number"
+    | "search"
+    | "checkbox"
+    | "button";
   placeholder: string;
   autoComplete?: string;
   required?: boolean;
@@ -24,7 +31,6 @@ export const InputField = ({
     <Input
       width={width}
       value={value}
-      // className={value?.length == 0 ? "notEmpty" : "notEmpty"}
       onChange={onChange}
       required={required}
       autoComplete={autoComplete}

@@ -8,7 +8,7 @@ export const RegisterButton = () => {
     <Container>
       <p>Não tem uma conta?</p>
       <RegisterText type="button">
-        <NavLink to="/register" value="Registre-se" />
+        <NavLink to="/signup" value="Registre-se" />
       </RegisterText>
     </Container>
   );

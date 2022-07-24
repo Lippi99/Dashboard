@@ -1,6 +1,7 @@
 import { Select } from "antd";
 import { SizeType } from "antd/lib/config-provider/SizeContext";
 import { ReactNode } from "react";
+import { Container } from "./styles";
 
 export interface SelectInputProps {
   width?: string;
@@ -32,15 +33,17 @@ export const SelectInput = ({
   defaultValue,
 }: SelectInputProps) => {
   return (
-    <Select
-      defaultValue={defaultValue}
-      onChange={onChange}
-      size={size}
-      value={value}
-      placeholder={placeholder}
-      style={{ width, height, border, borderRadius, padding, background }}
-    >
-      {children}
-    </Select>
+    <Container>
+      <Select
+        defaultValue={defaultValue}
+        onChange={onChange}
+        size={size}
+        value={value}
+        placeholder={placeholder}
+        style={{ width, height, border, borderRadius, padding, background }}
+      >
+        {children}
+      </Select>
+    </Container>
   );
 };
