@@ -1,13 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Box } from "../src/components/Box";
-import { GitHubSection } from "../src/components/Button/Github";
 import { RegisterButton } from "../src/components/Button/Register";
 import { SignInButton } from "../src/components/Button/Signin";
 import { ControlledInput } from "../src/components/ControlledInput";
-import { DivideSection } from "../src/components/Divide/styles";
 import { Flex } from "../src/components/Flex";
 import { HighLightText } from "../src/components/HiglightText";
 import { AuthContext } from "../src/context/AuthContext";
@@ -38,7 +36,6 @@ const Home: NextPage = () => {
 
   const handleLogin = async (data: Login) => {
     await signIn(data);
-    reset();
   };
 
   return (
@@ -61,7 +58,7 @@ const Home: NextPage = () => {
             width: "100%",
             backgroundColor: "var(--lightBlack)",
             margin: "0 auto",
-            padding: "1.5rem 4rem",
+            padding: "4rem 4rem",
             borderRadius: "7px",
           }}
           onSubmit={handleSubmit(handleLogin)}
@@ -91,8 +88,6 @@ const Home: NextPage = () => {
           <HighLightText text="Esqueci minha senha" />
           <SignInButton isLoading={isLoading} />
           <RegisterButton />
-          <DivideSection />
-          <GitHubSection />
         </form>
       </Flex>
     </>

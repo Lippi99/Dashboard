@@ -2,6 +2,8 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { setCookie, parseCookies } from "nookies";
 import Router from "next/router";
+import axios, { AxiosError } from "axios";
+import { notification } from "antd";
 
 interface AuthContextData {
   isAuthenticated: boolean;
@@ -34,6 +36,15 @@ export const AuthProvider = ({ children }: Children) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const isAuthenticated = !!user;
+
+  const openNotificationWithIcon = (
+    type: "open" | "success" | "info" | "warning" | "error",
+    message: string
+  ) => {
+    notification[type]({
+      message: message,
+    });
+  };
 
   const recoverMe = async () => {
     const { "nextAuth.token": token } = parseCookies();
@@ -81,7 +92,17 @@ export const AuthProvider = ({ children }: Children) => {
       setIsLoading(true);
       await recoverMe();
     } catch (error) {
-      setIsLoading(true);
+      if (axios.isAxiosError(error) && error.response?.status == 404) {
+        setIsLoading(false);
+        openNotificationWithIcon("error", "Usuário ou Senha inválida");
+        console.log("houve um erro aí");
+      } else {
+        setIsLoading(false);
+        openNotificationWithIcon(
+          "error",
+          "Houve um erro, contate o administrador"
+        );
+      }
     }
   };
 
