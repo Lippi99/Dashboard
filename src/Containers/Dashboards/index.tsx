@@ -1,4 +1,4 @@
-import { NavBar } from "../../components/Navbar";
+import { NavBar } from "../../components/Header";
 import { Card } from "../../components/Card";
 import { AreaChartGraph } from "../../components/Charts/Line";
 import { Container, GridItem, InnerContainer } from "./styles";
@@ -78,7 +78,7 @@ export const Dashboards = () => {
             : `Seja bem vindo, ${user.user?.name}`
         }`}</h1>
       </div>
-      <Filter handleChange={handleChange} />
+      <Filter filter={filter} handleChange={handleChange} />
       <GridItem>
         <Card
           width="90%"

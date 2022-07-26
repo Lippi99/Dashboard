@@ -1,12 +1,13 @@
 import moment from "moment";
 import Head from "next/head";
-import { parseCookies } from "nookies";
 import { useContext, useEffect, useState } from "react";
 import { Box } from "../../src/components/Box";
 import { Card } from "../../src/components/Card";
+import { LineChartGraph } from "../../src/components/Charts/BarColumn";
 import { AreaChartGraph } from "../../src/components/Charts/Line";
 import { Filter } from "../../src/components/Filter";
-import { NavBar } from "../../src/components/Navbar";
+import { Flex } from "../../src/components/Flex";
+import { Header } from "../../src/components/Header";
 import { AuthContext } from "../../src/context/AuthContext";
 import { api } from "../../src/services/api";
 
@@ -15,9 +16,21 @@ interface FilterProps {
   total: number;
 }
 
+interface Gender {
+  gender: string;
+  total: number;
+}
+
+interface Age {
+  total: number;
+  age: number;
+}
+
 export const Home = () => {
   const [filter, setFilter] = useState("7");
   const [filterList, setFilterList] = useState<FilterProps[]>([]);
+  const [genderList, setGenderList] = useState<Gender[]>([]);
+  const [ageList, setAgeList] = useState<Age[]>([]);
 
   const user = useContext(AuthContext);
 
@@ -37,11 +50,40 @@ export const Home = () => {
     fetchDate();
   }, [filter]);
 
+  useEffect(() => {
+    const fetchGender = async () => {
+      try {
+        const response = await api.get("/user/api/gender");
+        setGenderList(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchGender();
+  }, []);
+
+  useEffect(() => {
+    const fetchAge = async () => {
+      try {
+        const response = await api.get("/user/api/birth");
+        setAgeList(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchAge();
+  }, []);
+
   const handleChange = (event: string) => {
     return setFilter(event);
   };
 
-  const total = filterList.reduce((accum, item) => accum + item.total, 0);
+  const totalUsers = filterList.reduce((accum, item) => accum + item.total, 0);
+
+  const totalGenders = genderList.reduce(
+    (accum, item) => accum + item.total,
+    0
+  );
 
   return (
     <>
@@ -56,7 +98,7 @@ export const Home = () => {
         background="var(--darkBlack)"
         padding="0 4rem 2rem 4rem"
       >
-        <NavBar />
+        <Header />
         <Box>
           <h1 style={{ color: "white" }}>{`${
             user && user.user?.gender === "Feminino"
@@ -73,7 +115,7 @@ export const Home = () => {
             width="100%"
             height="500px"
             padding="1rem 1rem 0 1rem"
-            title={`${total} Novos usuários`}
+            title={`${totalUsers} Novos usuários`}
             description={
               filter === "7"
                 ? "Na última semana"
@@ -87,8 +129,27 @@ export const Home = () => {
             <AreaChartGraph data={filterList} />
           </Card>
         </Box>
+        <Flex direction="row" wrap="wrap" justify="space-between" gap="1rem">
+          <Card
+            width="49%"
+            height="500px"
+            padding="1rem 1rem 0 1rem"
+            title={`${totalGenders} gêneros na base`}
+            description={""}
+          >
+            <LineChartGraph keyItem="gender" data={genderList} />
+          </Card>
+          <Card
+            width="49%"
+            height="500px"
+            padding="1rem 1rem 0 1rem"
+            title={"Faixa Etária"}
+            description={""}
+          >
+            <LineChartGraph keyItem="birth" data={ageList} />
+          </Card>
+        </Flex>
       </Box>
-      {/* <Dashboards /> */}
     </>
   );
 };

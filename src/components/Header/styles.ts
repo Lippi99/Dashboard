@@ -12,7 +12,7 @@ export const Container = styled.header`
     ul {
       width: 100%;
       display: flex;
-     
+      position: relative;
 
       > a {
         color: var(--white);
