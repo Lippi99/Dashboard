@@ -19,10 +19,10 @@ export const Filter = ({ filter, handleChange }: FilterProps) => {
         width="200px"
         onChange={handleChange}
       >
-        <Option value="7">Últimos 7 dias</Option>
-        <Option value="15">Últimos 15 dias</Option>
-        <Option value="30">Últimos 30 dias</Option>
-        <Option value="90">últimos 90 dias</Option>
+        <Option value="7">Last 7 days </Option>
+        <Option value="15">Last 15 days </Option>
+        <Option value="30">Last 30 days </Option>
+        <Option value="90">Last 90 days </Option>
       </SelectInput>
     </Container>
   );

@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../services/api";
-import { setCookie, parseCookies } from "nookies";
+import { setCookie, parseCookies, destroyCookie } from "nookies";
 import Router from "next/router";
 import axios, { AxiosError } from "axios";
 import { notification } from "antd";
@@ -31,6 +31,11 @@ interface Children {
 }
 export const AuthContext = createContext({} as AuthContextData);
 
+export function signOut() {
+  destroyCookie(undefined, "nextAuth.token");
+  Router.push("/");
+}
+
 export const AuthProvider = ({ children }: Children) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +61,9 @@ export const AuthProvider = ({ children }: Children) => {
         },
       });
       setUser(response.data);
-    } catch (error) {}
+    } catch (error) {
+      signOut();
+    }
   };
 
   useEffect(() => {
