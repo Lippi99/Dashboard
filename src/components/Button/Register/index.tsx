@@ -6,9 +6,9 @@ import { Container, RegisterText } from "./styles";
 export const RegisterButton = () => {
   return (
     <Container>
-      <p>Não tem uma conta?</p>
+      <p>Does not have an account?</p>
       <RegisterText type="button">
-        <NavLink to="/register" value="Registre-se" />
+        <NavLink to="/signup" value="Register" />
       </RegisterText>
     </Container>
   );

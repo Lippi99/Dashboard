@@ -6,19 +6,13 @@ export const Container = styled.header`
   background: var(--darkBlack);
 
   nav {
-    max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 
     ul {
       width: 100%;
       display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+      position: relative;
 
       > a {
         color: var(--white);

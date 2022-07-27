@@ -1,6 +1,6 @@
 import { Control, Controller, FieldError } from "react-hook-form";
 import { InputField, InputProps } from "../Input";
-import { Error } from "./styles";
+import { Container, Error } from "./styles";
 
 type ControllerProps = InputProps & {
   control: Control<any>;
@@ -17,16 +17,21 @@ export const ControlledInput = ({
   ...rest
 }: ControllerProps) => {
   return (
-    <>
+    <Container>
       <Controller
-        defaultValue=""
         name={name}
         control={control}
+        defaultValue=""
         render={({ field: { onChange, value } }) => (
-          <InputField onChange={onChange} value={value} {...rest} />
+          <InputField
+            autoComplete="on"
+            onChange={onChange}
+            value={value}
+            {...rest}
+          />
         )}
       />
       {error && <Error>{error.message}</Error>}
-    </>
+    </Container>
   );
 };

@@ -3,29 +3,39 @@ import {
   YAxis,
   Tooltip,
   BarChart,
-  Legend,
   Bar,
   ResponsiveContainer,
   Area,
+  Cell,
 } from "recharts";
+import { DataKey } from "recharts/types/util/types";
 
 interface ChartProps {
   data: any;
+  keyItem: DataKey<any>;
 }
 
-export const LineChartGraph = ({ data }: ChartProps) => {
+export const LineChartGraph = ({ data, keyItem }: ChartProps) => {
+  const colors = ["blue", "pink", "yellow"];
+
   return (
     <ResponsiveContainer width="99%" height={"80%"}>
-    <BarChart data={data}>
-      {/* <CartesianGrid  /> */}
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip cursor={false} />
-      <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
-      <Legend />
-      <Bar dataKey="pv" fill="#8884d8" />
-      <Bar dataKey="uv" fill="#82ca9d" />
-    </BarChart>
+      <BarChart data={data}>
+        <XAxis dataKey={keyItem} />
+        <YAxis />
+        <Tooltip cursor={false} />
+        <Area type="monotone" dataKey="total" stroke="#8884d8" fill="#8884d8" />
+        <Bar dataKey="total">
+          {data.map((entry: any, index: number) => (
+            <Cell
+              key={`cell-${index}`}
+              fill={colors[index]}
+              stroke={colors[index]}
+              strokeWidth={1}
+            />
+          ))}
+        </Bar>
+      </BarChart>
     </ResponsiveContainer>
   );
 };

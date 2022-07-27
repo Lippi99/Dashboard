@@ -12,23 +12,27 @@ import {
 } from "recharts";
 
 interface ChartProps {
-  data: any;
+  data: any[];
 }
 
 export const AreaChartGraph = ({ data }: ChartProps) => {
-
   return (
-    <ResponsiveContainer width="99%" height={"80%"}>
+    <ResponsiveContainer width="99%" height="80%">
       <AreaChart data={data}>
-        <XAxis interval={0} dataKey="createdAt" />
-        <YAxis interval={0} />
+        <XAxis dataKey="date" />
+        <YAxis />
         <Tooltip />
         <Area
           fillOpacity={1}
           opacity="0.7"
           type="linear"
           strokeWidth={2}
-          dot={{ stroke: "#ffffff", strokeWidth: 2, r: 4, strokeDasharray: "" }}
+          dot={{
+            stroke: "#ffffff",
+            strokeWidth: 2,
+            r: 4,
+            strokeDasharray: "",
+          }}
           dataKey="total"
           stroke="#81c995"
           fill="#3e9256"

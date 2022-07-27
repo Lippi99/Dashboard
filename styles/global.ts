@@ -38,7 +38,10 @@ export const GlobalStyle = createGlobalStyle`
 
     h1, h2, h3, h4, h5, h6, strong {
         font-weight: 700;
-        font-family: "Montserrat", sans-serif;
+        font-family: 'Roboto', sans-serif;
+    }
+    p, span, a {
+      font-family: 'Open Sans', sans-serif;
     }
 
     button {
@@ -71,4 +74,22 @@ export const GlobalStyle = createGlobalStyle`
         cursor: not-allowed;
     }
 
+    //global classNames
+
+    .rounded-full {
+      border-radius: 50%;
+    }
+
+    .dWPcrn .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector {
+      height: 55px;
+    }
+
+    .ant-select-selection-placeholder {
+      display: flex;
+      align-items: center;
+    }
+    .ant-select-selection-item {
+      display: flex;
+      align-items: center;
+    }
 `;
