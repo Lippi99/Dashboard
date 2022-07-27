@@ -96,7 +96,7 @@ export const AuthProvider = ({ children }: Children) => {
       });
       setUser(user);
       Router.push("/home");
-      setIsLoading(true);
+      setIsLoading(false);
       await recoverMe();
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status == 404) {

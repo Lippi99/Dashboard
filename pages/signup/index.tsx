@@ -25,15 +25,15 @@ interface FormProps {
 }
 
 const schema = yup.object({
-  name: yup.string().required("Informe o seu nome"),
-  email: yup.string().email("E-mail inválido").required("Informe o seu email"),
-  birth: yup.string().required("Informe a data de nascimento"),
-  gender: yup.string().required("Informe o seu gênero"),
-  password: yup.string().required("Informe sua senha"),
+  name: yup.string().required("Name required"),
+  email: yup.string().email("E-mail invalid").required("E-mail required"),
+  birth: yup.string().required("Birth required"),
+  gender: yup.string().required("Gender required"),
+  password: yup.string().required("Password required"),
   passwordConfirm: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Senhas não coincidem")
-    .required("Informe sua senha"),
+    .oneOf([yup.ref("password"), null], "Passwords don't match")
+    .required("New password required"),
 });
 
 export const SignUp = () => {
@@ -54,16 +54,16 @@ export const SignUp = () => {
     try {
       const response = await api.post("user/api/register", data);
       reset();
-      openNotificationWithIcon("success", "Usuário registrado com sucesso!");
+      openNotificationWithIcon("success", "User registered successfully");
       response.data;
       setIsLoading(false);
     } catch (error: unknown | AxiosError) {
       if (axios.isAxiosError(error) && error.response?.status == 400) {
-        openNotificationWithIcon("error", "E-mail já registrado");
+        openNotificationWithIcon("error", "E-mail already registered");
       } else {
         openNotificationWithIcon(
           "error",
-          "Houve um erro na chamada, contate o administrador"
+          "There was an error in the call, contact your administrator"
         );
       }
       setIsLoading(false);
@@ -108,7 +108,7 @@ export const SignUp = () => {
               <ControlledInput
                 width="100%"
                 type="text"
-                placeholder="Nome"
+                placeholder="Name"
                 name="name"
                 control={control}
                 error={errors.name}
@@ -146,21 +146,19 @@ export const SignUp = () => {
                 name="gender"
                 borderRadius="7px"
                 size="large"
-                placeholder="Selecione o seu gênero"
+                placeholder="Select Gender"
                 error={errors.gender}
               >
-                <Option value="Masculino">Masculino</Option>
-                <Option value="Feminino">Feminino</Option>
-                <Option value="Prefiro não me identificar">
-                  Prefiro não me identificar
-                </Option>
+                <Option value="Male">Male</Option>
+                <Option value="Female">Female</Option>
+                <Option value="Not identified">Not identified</Option>
               </ControlledSelect>
             </Flex>
             <Flex width="48%" direction="column">
               <ControlledInput
                 width="100%"
                 type="password"
-                placeholder="Senha"
+                placeholder="Password"
                 name="password"
                 control={control}
                 error={errors.password}
@@ -170,7 +168,7 @@ export const SignUp = () => {
               <ControlledInput
                 width="100%"
                 type="password"
-                placeholder="Confirmar Senha"
+                placeholder="Confirm Password"
                 name="passwordConfirm"
                 control={control}
                 error={errors.passwordConfirm}
@@ -179,14 +177,14 @@ export const SignUp = () => {
 
             <Flex direction="row" align="center">
               <span style={{ color: "white" }}>
-                Ao se registrar, você aceita nossos{" "}
+                By registering, you accept our{" "}
                 <a
                   style={{ color: "var(--purple)", textDecoration: "none" }}
                   target="_blank"
-                  href="https://www.rocketseat.com.br/"
+                  href="#"
                   rel="noreferrer"
                 >
-                  termos de uso e a nossa política de privacidade
+                  Terms of use and our privacy policy
                 </a>
               </span>
             </Flex>
@@ -195,7 +193,7 @@ export const SignUp = () => {
             <SignUpButton isLoading={isLoading} type="submit" />
           </Box>
           <Flex align="center" justify="center" margin="1rem">
-            <NavLink to="/" value={"Voltar para o login"} />
+            <NavLink to="/" value={"Back to login"} />
           </Flex>
         </form>
       </Flex>

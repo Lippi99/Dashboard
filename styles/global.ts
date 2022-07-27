@@ -40,7 +40,7 @@ export const GlobalStyle = createGlobalStyle`
         font-weight: 700;
         font-family: 'Roboto', sans-serif;
     }
-    p, span {
+    p, span, a {
       font-family: 'Open Sans', sans-serif;
     }
 
@@ -80,4 +80,16 @@ export const GlobalStyle = createGlobalStyle`
       border-radius: 50%;
     }
 
+    .dWPcrn .ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector {
+      height: 55px;
+    }
+
+    .ant-select-selection-placeholder {
+      display: flex;
+      align-items: center;
+    }
+    .ant-select-selection-item {
+      display: flex;
+      align-items: center;
+    }
 `;

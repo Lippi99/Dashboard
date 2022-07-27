@@ -62,10 +62,9 @@ export const Home = () => {
 
   const totalUsers = filterList.reduce((accum, item) => accum + item.total, 0);
 
-  const totalGenders = genderList.reduce(
-    (accum, item) => accum + item.total,
-    0
-  );
+  const totalGenders = genderList
+    ? genderList.reduce((accum, item) => accum + item.total, 0)
+    : "";
 
   return (
     <>

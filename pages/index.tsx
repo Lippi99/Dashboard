@@ -18,8 +18,8 @@ interface Login {
 }
 
 const schema = yup.object({
-  email: yup.string().email("E-mail inválido").required("Informe o seu e-mail"),
-  password: yup.string().required("Informe sua senha"),
+  email: yup.string().email("E-mail invalid").required("E-mail required"),
+  password: yup.string().required("Password required"),
 });
 
 const Home: NextPage = () => {
@@ -78,14 +78,14 @@ const Home: NextPage = () => {
               <ControlledInput
                 width="100%"
                 type="password"
-                placeholder="Senha"
+                placeholder="Password"
                 name="password"
                 control={control}
                 error={errors.password}
               />
             </Box>
           </Flex>
-          <HighLightText text="Esqueci minha senha" />
+          <HighLightText text="Forgot my password" />
           <SignInButton isLoading={isLoading} />
           <RegisterButton />
         </form>

@@ -24,6 +24,7 @@ export const DataPicker = ({
     <DatePicker
       value={value}
       size="large"
+      placeholder="Select birth"
       style={{ width, height, borderRadius, background, border }}
       onChange={onChange}
       format={dateFormatList}
