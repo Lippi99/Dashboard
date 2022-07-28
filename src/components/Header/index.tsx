@@ -24,7 +24,7 @@ export const Header = () => {
           >
             <Box margin="0 30px 0 0">
               <NextLink href="/profile">
-                <a>Meu perfil</a>
+                <a>My profile</a>
               </NextLink>
             </Box>
             <Box>
