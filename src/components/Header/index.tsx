@@ -1,7 +1,6 @@
-import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Tooltip } from "antd";
-import { useContext } from "react";
-import { AuthContext, signOut } from "../../context/AuthContext";
+import { LogoutOutlined } from "@ant-design/icons";
+import { Tooltip } from "antd";
+import { signOut } from "../../context/AuthContext";
 import { Box } from "../Box";
 import { NavLink } from "../Link";
 import { Container } from "./styles";
@@ -9,8 +8,6 @@ import NextLink from "next/link";
 import { Flex } from "../Flex";
 
 export const Header = () => {
-  const { user } = useContext(AuthContext);
-
   return (
     <Container>
       <nav>
@@ -27,17 +24,7 @@ export const Header = () => {
           >
             <Box margin="0 30px 0 0">
               <NextLink href="/profile">
-                <a>
-                  <Avatar
-                    style={{
-                      background: "var(--purple)",
-                      verticalAlign: "middle",
-                    }}
-                    size="large"
-                  >
-                    {user?.name}
-                  </Avatar>
-                </a>
+                <a>Meu perfil</a>
               </NextLink>
             </Box>
             <Box>
