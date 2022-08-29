@@ -22,11 +22,6 @@ export const Header = () => {
             direction="row"
             align="center"
           >
-            <Box margin="0 30px 0 0">
-              <NextLink href="/profile">
-                <a>My profile</a>
-              </NextLink>
-            </Box>
             <Box>
               <button onClick={signOut}>
                 <Tooltip title="Sair">

@@ -13,7 +13,7 @@ export const SignInButton = ({ isLoading }: ButtonProps) => {
       {isLoading ? (
         <Spin size="large" spinning={isLoading} indicator={antIcon} />
       ) : (
-        <span style={{ fontSize: "17px" }}>Entrar</span>
+        <span style={{ fontSize: "17px" }}>Sign In</span>
       )}
     </SignInBtn>
   );

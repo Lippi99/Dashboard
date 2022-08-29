@@ -12,7 +12,7 @@ import { DataKey } from "recharts/types/util/types";
 
 interface ChartProps {
   data: any;
-  keyItem: DataKey<any>;
+  keyItem?: DataKey<any>;
 }
 
 export const LineChartGraph = ({ data, keyItem }: ChartProps) => {

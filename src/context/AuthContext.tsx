@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }: Children) => {
         email,
         password,
       });
-
+      await recoverMe();
       const expireToken = 60 * 60 * 1; // 1 hour
 
       setCookie(undefined, "nextAuth.token", response.data.token, {
@@ -97,17 +97,16 @@ export const AuthProvider = ({ children }: Children) => {
       setUser(user);
       Router.push("/home");
       setIsLoading(false);
-      await recoverMe();
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status == 404) {
         setIsLoading(false);
-        openNotificationWithIcon("error", "Usuário ou Senha inválida");
+        openNotificationWithIcon("error", "Username or Password invalid");
         console.log("houve um erro aí");
       } else {
         setIsLoading(false);
         openNotificationWithIcon(
           "error",
-          "Houve um erro, contate o administrador"
+          "There was an error, contact the administrator"
         );
       }
     }

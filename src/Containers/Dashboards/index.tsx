@@ -1,4 +1,3 @@
-import { NavBar } from "../../components/Header";
 import { Card } from "../../components/Card";
 import { AreaChartGraph } from "../../components/Charts/Line";
 import { Container, GridItem, InnerContainer } from "./styles";
@@ -36,41 +35,12 @@ export const Dashboards = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     moment.locale("pt-br");
-  //     const currentDate = moment().utc().format();
-  //     const dateToBeFiltered = moment.utc().subtract(filter, "days").format();
-  //     const queryDate = `fromDate=${currentDate}&toDate=${dateToBeFiltered}`;
-
-  //     const filterUserUpdated = [];
-
-  //     try {
-  //       const res = await api.get(`dashboards/api/filter?${queryDate}`);
-
-  //       const data: FilterProps[] = await res.data;
-
-  //       let found = Object.keys(data).find((element) => {
-  //         return element === "12 de maio de 2022";
-  //       });
-
-  //       data["occurrences"] = found ? data["occurrences"] + 1 : 1;
-
-  //       setFilterUser(filterUserUpdated as any);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [filter]);
-
   const handleChange = (event: string) => {
     return setFilter(event);
   };
 
   return (
     <Container>
-      <NavBar />
       <div style={{ padding: "1rem 1rem 0 1rem" }}>
         <h1 style={{ color: "white" }}>{`${
           user && user.user?.gender === "Feminino"
