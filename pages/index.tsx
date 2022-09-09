@@ -11,6 +11,7 @@ import { HighLightText } from "../src/components/HiglightText";
 import { AuthContext } from "../src/context/AuthContext";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Form } from "../src/components/Form";
 
 interface Login {
   email: string;
@@ -52,15 +53,14 @@ const Home: NextPage = () => {
         justify="center"
         align="center"
       >
-        <form
-          style={{
-            maxWidth: "500px",
-            width: "100%",
-            backgroundColor: "var(--lightBlack)",
-            margin: "0 auto",
-            padding: "4rem 4rem",
-            borderRadius: "7px",
-          }}
+        <Form
+          maxWidth="500px"
+          width="100%"
+          height="100%"
+          background="var(--lightBlack)"
+          margin="0 auto"
+          padding="4rem 4rem"
+          borderRadius="7px"
           onSubmit={handleSubmit(handleLogin)}
         >
           <Flex width="100%" align="center" direction="column" padding="1rem 0">
@@ -88,7 +88,7 @@ const Home: NextPage = () => {
           <HighLightText text="Forgot my password" />
           <SignInButton isLoading={isLoading} />
           <RegisterButton />
-        </form>
+        </Form>
       </Flex>
     </>
   );

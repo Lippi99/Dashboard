@@ -14,6 +14,8 @@ import { api } from "../../src/services/api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState } from "react";
+import { Form } from "../../src/components/Form";
+import { Grid } from "../../src/components/Grid";
 
 interface FormProps {
   email: string;
@@ -84,27 +86,24 @@ export const SignUp = () => {
         justify="center"
         align="center"
       >
-        <form
+        <Form
           onSubmit={handleSubmit(handleRegister)}
-          style={{
-            maxWidth: "700px",
-            width: "100%",
-            overflowY: "auto",
-            borderRadius: "10px",
-            backgroundColor: "var(--lightBlack)",
-            margin: "0 auto",
-            padding: "1rem 0",
-          }}
+          maxWidth="700px"
+          width="100%"
+          overflowY="auto"
+          borderRadius="10px"
+          background="var(--lightBlack)"
+          margin="0 auto"
+          padding="1rem 0"
         >
-          <Flex
+          <Grid
             width="100%"
-            align="center"
             justify="space-between"
             rowGap="2rem"
-            wrap="wrap"
+            placeItems="center"
             padding="1.5rem 4rem"
           >
-            <Flex width="48%" direction="column">
+            <Flex width="100%" direction="column">
               <ControlledInput
                 width="100%"
                 type="text"
@@ -114,7 +113,7 @@ export const SignUp = () => {
                 error={errors.name}
               />
             </Flex>
-            <Flex width="48%" direction="column">
+            <Flex width="100%" direction="column">
               <ControlledInput
                 width="100%"
                 type="text"
@@ -124,7 +123,7 @@ export const SignUp = () => {
                 error={errors.email}
               />
             </Flex>
-            <Flex width="48%" direction="column">
+            <Flex width="100%" direction="column">
               <ControlledDataPicker
                 width="100%"
                 borderRadius="10px"
@@ -136,7 +135,7 @@ export const SignUp = () => {
                 error={errors.birth}
               />
             </Flex>
-            <Flex width="48%" direction="column">
+            <Flex width="100%" direction="column">
               <ControlledSelect
                 width="100%"
                 backgroundColor="#121214"
@@ -154,7 +153,7 @@ export const SignUp = () => {
                 <Option value="Not identified">Not identified</Option>
               </ControlledSelect>
             </Flex>
-            <Flex width="48%" direction="column">
+            <Flex width="100%" direction="column">
               <ControlledInput
                 width="100%"
                 type="password"
@@ -164,7 +163,7 @@ export const SignUp = () => {
                 error={errors.password}
               />
             </Flex>
-            <Flex width="48%" direction="column">
+            <Flex width="100%" direction="column">
               <ControlledInput
                 width="100%"
                 type="password"
@@ -174,28 +173,20 @@ export const SignUp = () => {
                 error={errors.passwordConfirm}
               />
             </Flex>
-
-            <Flex direction="row" align="center">
-              <span style={{ color: "white" }}>
-                By registering, you accept our{" "}
-                <a
-                  style={{ color: "var(--purple)", textDecoration: "none" }}
-                  target="_blank"
-                  href="#"
-                  rel="noreferrer"
-                >
-                  Terms of use and our privacy policy
-                </a>
-              </span>
-            </Flex>
-          </Flex>
-          <Box padding="0 2rem">
+          </Grid>
+          <Box width="100%" padding="0 2rem">
             <SignUpButton isLoading={isLoading} type="submit" />
           </Box>
-          <Flex align="center" justify="center" margin="1rem">
+          <Flex
+            width="100%"
+            align="center"
+            justify="center"
+            margin="-0.4rem"
+            padding="1.5rem"
+          >
             <NavLink to="/" value={"Back to login"} />
           </Flex>
-        </form>
+        </Form>
       </Flex>
     </>
   );

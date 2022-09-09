@@ -7,12 +7,11 @@ export const SignUpBtn = styled.button`
   font-weight: bolder;
   text-transform: uppercase;
   margin-top: 2rem;
-  background: linear-gradient(transparent,rgba(0, 0, 0, 0.5)) top/100% 800%;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5)) top/100% 800%;
   background-color: var(--purple);
-  transition:0.5s;
+  transition: 0.5s;
 
   &:hover {
-    background-position:center;
+    background-position: center;
   }
-
 `;

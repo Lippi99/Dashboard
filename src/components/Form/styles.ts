@@ -1,23 +1,12 @@
 import styled from "styled-components";
 
 interface ContentProps {
+  maxWidth: string | number;
   width: string | number;
   height: string | number;
   background: string;
-  minHeight: string;
-  columns: string | number;
-  rows: string | number;
-  gap: string | number;
-  rowGap: string | number;
-  justify:
-    | "center"
-    | "space-around"
-    | "space-between"
-    | "flex-start"
-    | "flex-end";
-  placeItems: "center" | "normal start";
-  borderRadius: string;
-  overflowY: "scroll" | "hidden" | "auto";
+  minHeight: string | number;
+  overflowY: string | number;
   opacity: string | number;
   position: string | number;
   top: string | number;
@@ -26,19 +15,15 @@ interface ContentProps {
   left: string | number;
   padding: string | number;
   margin: string | number;
-  borderBottom: string | number;
+  borderbottom: string | number;
   border: string | number;
+  borderRadius: string;
+  zIndex: 1 | 100 | 1000;
+  transform: string;
 }
 
-export const Content = styled.div<ContentProps>`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 17rem));
-  grid-template-rows: ${(props) => props.rows};
-  gap: ${(props) => props.gap};
-  row-gap: ${(props) => props.rowGap};
-  justify-content: ${(props) => props.justify};
-  place-items: ${(props) => props.placeItems};
-
+export const Content = styled.form<ContentProps>`
+  max-width: ${(props) => props.maxWidth};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   background: ${(props) => props.background};
@@ -52,15 +37,17 @@ export const Content = styled.div<ContentProps>`
   left: ${(props) => props.left};
   padding: ${(props) => props.padding};
   margin: ${(props) => props.margin};
-  border-radius: ${(props) => props.borderRadius};
-  border-bottom: ${(props) => props.borderBottom};
+  border-bottom: ${(props) => props.borderbottom};
   border: ${(props) => props.border};
+  border-radius: ${(props) => props.borderRadius};
+  z-index: ${(props) => props.zIndex};
+  transform: ${(props) => props.transform};
 
   @media screen and (max-width: 520px) {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    align-items: flex-start;
     justify-content: center;
+    flex-direction: column;
+    height: 100vh;
   }
 `;
