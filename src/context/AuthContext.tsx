@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { setCookie, parseCookies, destroyCookie } from "nookies";
 import Router from "next/router";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { notification } from "antd";
 
 interface AuthContextData {
@@ -52,14 +52,8 @@ export const AuthProvider = ({ children }: Children) => {
   };
 
   const recoverMe = async () => {
-    const { "nextAuth.token": token } = parseCookies();
     try {
-      const response = await api.get("user/api/me", {
-        headers: {
-          Authorization: `${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await api.get("user/api/me");
       setUser(response.data);
     } catch (error) {
       signOut();
@@ -69,13 +63,9 @@ export const AuthProvider = ({ children }: Children) => {
   useEffect(() => {
     const fetchMe = async () => {
       const { "nextAuth.token": token } = parseCookies();
+
       if (token) {
         await recoverMe();
-        if (Router.pathname === "/") {
-          Router.push("/home");
-        }
-      } else {
-        Router.push("/");
       }
     };
     fetchMe();
@@ -96,12 +86,12 @@ export const AuthProvider = ({ children }: Children) => {
       });
       setUser(user);
       Router.push("/home");
+      location.reload();
       setIsLoading(false);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status == 404) {
         setIsLoading(false);
         openNotificationWithIcon("error", "Username or Password invalid");
-        console.log("houve um erro aí");
       } else {
         setIsLoading(false);
         openNotificationWithIcon(

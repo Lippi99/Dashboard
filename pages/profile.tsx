@@ -1,6 +1,8 @@
 import { DownloadOutlined, WarningOutlined } from "@ant-design/icons";
 import { Button, Tooltip } from "antd";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
+import nookies from "nookies";
 import { useContext } from "react";
 import { Box } from "../src/components/Box";
 import { Flex } from "../src/components/Flex";
@@ -108,4 +110,20 @@ export function Profile() {
   );
 }
 
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const cookies = nookies.get(ctx);
+
+  if (!cookies["nextAuth.token"]) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 export default Profile;

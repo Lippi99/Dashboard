@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ import { AuthContext } from "../src/context/AuthContext";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Form } from "../src/components/Form";
+import nookies from "nookies";
 
 interface Login {
   email: string;
@@ -27,7 +28,6 @@ const Home: NextPage = () => {
   const {
     control,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<Login>({
     resolver: yupResolver(schema),
@@ -92,6 +92,23 @@ const Home: NextPage = () => {
       </Flex>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const cookies = nookies.get(ctx);
+
+  if (cookies["nextAuth.token"]) {
+    return {
+      redirect: {
+        destination: "/home",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default Home;

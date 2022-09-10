@@ -3,6 +3,8 @@ import { Header } from "../src/components/Header";
 import NextImage from "next/image";
 import { Flex } from "../src/components/Flex";
 import Head from "next/head";
+import { GetServerSideProps } from "next";
+import nookies from "nookies";
 
 export function Author() {
   return (
@@ -63,5 +65,22 @@ export function Author() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const cookies = nookies.get(ctx);
+
+  if (!cookies["nextAuth.token"]) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 export default Author;

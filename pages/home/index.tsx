@@ -1,5 +1,7 @@
 import moment from "moment";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { parseCookies } from "nookies";
 import { useContext, useEffect, useState } from "react";
 import { Box } from "../../src/components/Box";
 import { Card } from "../../src/components/Card";
@@ -10,6 +12,7 @@ import { Flex } from "../../src/components/Flex";
 import { Header } from "../../src/components/Header";
 import { AuthContext } from "../../src/context/AuthContext";
 import { api } from "../../src/services/api";
+import nookies from "nookies";
 
 interface FilterProps {
   date: string;
@@ -124,4 +127,20 @@ export const Home = () => {
   );
 };
 
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const cookies = nookies.get(ctx);
+
+  if (!cookies["nextAuth.token"]) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 export default Home;

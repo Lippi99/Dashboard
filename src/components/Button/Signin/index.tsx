@@ -1,6 +1,7 @@
 import { SignInBtn } from "./styles";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
+import NextLink from "next/link";
 
 interface ButtonProps {
   isLoading?: boolean;
