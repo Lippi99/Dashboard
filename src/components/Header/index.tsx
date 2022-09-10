@@ -12,9 +12,15 @@ export const Header = () => {
     <Container>
       <nav>
         <ul>
-          <NavLink value="Dashboards" to="/home" />
-          <NavLink value="My Profile" to="/profile" />
-          <NavLink value="About Author" to="/author" />
+          <li>
+            <NavLink value="Dashboards" to="/home" />
+          </li>
+          <li>
+            <NavLink value="My Profile" to="/profile" />
+          </li>
+          <li>
+            <NavLink value="About Author" to="/author" />
+          </li>
           <Flex
             position="absolute"
             right={0}

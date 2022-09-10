@@ -14,11 +14,14 @@ export const Container = styled.header`
       display: flex;
       position: relative;
 
-      > a {
-        color: var(--white);
-        font-size: 1rem;
-        + a {
+      > li {
+        + li {
           margin-left: 3rem;
+        }
+
+        > a {
+          color: var(--white);
+          font-size: 1rem;
         }
       }
     }

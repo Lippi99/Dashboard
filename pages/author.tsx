@@ -42,6 +42,7 @@ export function Author() {
                 layout="fixed"
                 objectFit="cover"
                 className="rounded-full"
+                priority
               />
             </Flex>
             <Box width="50%" margin="0 auto">
