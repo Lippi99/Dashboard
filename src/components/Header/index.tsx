@@ -30,7 +30,7 @@ export const Header = () => {
           >
             <Box>
               <button onClick={signOut}>
-                <Tooltip title="Sair">
+                <Tooltip title="Logout">
                   <LogoutOutlined
                     style={{ fontSize: 25, color: "red" }}
                     size={70}
